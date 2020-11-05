@@ -12,5 +12,5 @@ void Ok::setResponseValue(const std::string& value) {
 
 std::pair<std::string, std::string> Ok::getResponse() {
     return std::pair<std::string, std::string>(
-        "HTTP 200 OK \n", this->value);
+        "HTTP 200 OK\n", this->value);
 }

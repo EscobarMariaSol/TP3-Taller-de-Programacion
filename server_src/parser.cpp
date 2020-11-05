@@ -12,6 +12,7 @@ std::string Parser::getMethodName(const std::string& content) const {
     size_t end = content.find_first_of(' ');
     return content.substr(0, end);
 }
+
 /******************* Métodos Públicos de Parser ******************************/
 
 Parser::Parser() {
