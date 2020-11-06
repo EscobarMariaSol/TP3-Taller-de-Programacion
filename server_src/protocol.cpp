@@ -26,3 +26,7 @@ Response* HttpProtocol::handleRequestResponse(const std::string& content) {
     }
     return new Ok(response_value);
 }
+
+std::string HttpProtocol::getRequestFormat(const std::string& request) const {
+    return request.substr(0,request.find_first_of('\n'));
+}

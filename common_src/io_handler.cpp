@@ -11,11 +11,12 @@ IOHandler::IOHandler(const std::string path) {
 }
 
 IOHandler::~IOHandler() {
-    this->file.close();
+    if (this->file.is_open())
+        this->file.close();
 }
 
 void IOHandler::getInput(std::stringbuf& buffer) {
-    if (this->file.is_open()) {
+    if (this->file.is_open() && !this->file.eof()) {
         this->file.get(buffer, EOF);
         if (this->file.fail())
             throw std::runtime_error("Input cannot be get.");

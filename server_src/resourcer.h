@@ -3,6 +3,7 @@
 
 #include <map>
 #include <functional>
+#include <iostream>
 
 // Clase que almacena los recursos 
 // Cuenta con los siguientes parámetros

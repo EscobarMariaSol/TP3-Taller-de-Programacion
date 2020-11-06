@@ -1,21 +1,27 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "server_socket.h"
+#include "../common_src/socket.h"
 #include "resourcer.h"
-#include "response.h"
+#include "../common_src/response.h"
+#include "../common_src/io_handler.h"
+#include "protocol.h"
 #include <mutex>
 
 class Server {
 private:
     std::mutex mutex;
+    Socket socket;
     Resourcer resourcer;
-    void saveRoot(const char *path);
+    IOHandler io_handler;
+    void saveRoot();
+    void recvRequest(Socket& peer, std::stringbuf& request);
+    void sendResponse(Socket& peer, const Response *response);
 
 public:
-    Server(/* args */);
+    Server(const char *port, const std::string path);
     ~Server();
-    void run(const char *port, const char *path);
+    void run();
 };
 
 #endif // SERVER_H

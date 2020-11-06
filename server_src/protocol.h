@@ -4,13 +4,13 @@
 #include <string>
 #include <fstream>
 #include "resourcer.h"
-#include "response.h"
+#include "../common_src/response.h"
 #include "checker.h"
 #include "parser.h"
-#include "ok.h"
-#include "not_allowed.h"
-#include "not_found.h"
-#include "forbidden.h"
+#include "../common_src/ok.h"
+#include "../common_src/not_allowed.h"
+#include "../common_src/not_found.h"
+#include "../common_src/forbidden.h"
 
 class HttpProtocol{
 private:
@@ -21,6 +21,7 @@ public:
     HttpProtocol(const Resourcer& resourcer);
     ~HttpProtocol();
     Response* handleRequestResponse(const std::string& content);
+    std::string getRequestFormat(const std::string& request) const;
 };
 
 #endif // REQUEST_HANDLER_H

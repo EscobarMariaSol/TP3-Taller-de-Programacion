@@ -7,7 +7,8 @@ class NotAllowed: public Response {
 public:
     NotAllowed();
     ~NotAllowed();
-    std::pair<std::string, std::string> getResponse() override;
+    std::pair<std::string, std::string> getResponse() const override;
+    void serialize(std::stringbuf& str_serialize) const override;
 };
 
 #endif // NOT_ALLOWED_H

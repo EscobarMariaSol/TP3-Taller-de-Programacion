@@ -4,12 +4,14 @@
 
 std::string Parser::getResourceName(const std::string& content) const {
     size_t start = content.find_first_of('/');
+    if (start == std::string::npos) return "";
     size_t end = content.substr(start).find_first_of(' ');
     return content.substr(start, end);
 }
 
 std::string Parser::getMethodName(const std::string& content) const {
     size_t end = content.find_first_of(' ');
+    if (end == std::string::npos) return "";
     return content.substr(0, end);
 }
 
