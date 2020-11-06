@@ -6,8 +6,8 @@
 
 class ServerSocket: public Socket {
 private:
-    void setFileDescriptor(const Addrinfo& addrinfo);
-    void bindAndListen(Addrinfo& addrinfo);
+    void setFileDescriptor(const HandlerAddrinfo& addrinfo);
+    void bindAndListen(HandlerAddrinfo& addrinfo);
     void activeReuseAddress();
 
 public:

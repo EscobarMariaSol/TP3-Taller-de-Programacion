@@ -10,19 +10,17 @@
 #include <exception>
 #include <functional>
 
-class Addrinfo {
+class HandlerAddrinfo {
 private:
     struct addrinfo hints;
     struct addrinfo *addr;
     void init(const int flag);
 
 public:
-    Addrinfo(const char* host, const char* port, const int flag);
-    ~Addrinfo();
+    HandlerAddrinfo(const char* host, const char* port, const int flag);
+    ~HandlerAddrinfo();
     void callGetAddrinfo(const char* host, const char* port);
-    int getFamily() const;
-    int getType() const;
-    int getProtocol() const;
+    int openSocket() const;
     void bindAddress(const int fd);
     void connectAddress(int& fd);
 };

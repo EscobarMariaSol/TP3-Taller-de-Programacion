@@ -7,13 +7,6 @@
 Socket::Socket() {
 }
 
-Socket::~Socket() {
-    if (this->fd) {
-		shutdown(this->fd, SHUT_RDWR); // devuelve 0 si ok, sino -1
-    close(this->fd);
-	}
-}
-
 void Socket::setFileDescriptor(const int fd) {
 	if (fd == -1) throw std::runtime_error("File descriptor in not valid");
 	this->fd = fd;
@@ -37,4 +30,11 @@ int Socket::recv_msg(unsigned char *buffer, const size_t size) {
 	} while (recived == (size - total));
     if (recived < 0) return -1;
 	return total;
+}
+
+Socket::~Socket() {
+    if (this->fd != -1) {
+		shutdown(this->fd, SHUT_RDWR); // devuelve 0 si ok, sino -1
+    	close(this->fd);
+	}
 }

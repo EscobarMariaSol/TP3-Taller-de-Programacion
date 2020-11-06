@@ -17,18 +17,14 @@ void ServerSocket::activeReuseAddress() {
 // Pos: se ha asignado un file descriptor al socket, si ocurre un error 
 // durante el proceso de asignación se lanza una excepción informando 
 // lo ocurrido
-void  ServerSocket::setFileDescriptor(const Addrinfo& addr) {
-	int skt_fd;
-	skt_fd = socket(addr.getFamily(), addr.getType(), addr.getProtocol());
-	if (skt_fd == -1) 
-        throw std::runtime_error("Socket file descriptor cannot be set.");
-	this->fd = skt_fd;
+void  ServerSocket::setFileDescriptor(const HandlerAddrinfo& addr) {
+	this->fd = addr.openSocket();
 }
 
 // Establece que el servidor está listo para escuchar conexiones
 // y la cantidad de conexiones en espera que se habilitarán
 // Pos: 
-void ServerSocket::bindAndListen(Addrinfo& addr) {
+void ServerSocket::bindAndListen(HandlerAddrinfo& addr) {
 	addr.bindAddress(this->fd);
 	if (listen(this->fd, 1) < 0) 
         throw std::runtime_error("Listen failed.");
@@ -38,7 +34,7 @@ void ServerSocket::bindAndListen(Addrinfo& addr) {
 
 
 ServerSocket::ServerSocket(const char *port): Socket() {
-    Addrinfo addrinfo(NULL, port, AI_PASSIVE);
+    HandlerAddrinfo addrinfo(NULL, port, AI_PASSIVE);
 	addrinfo.callGetAddrinfo(NULL, port);
 	setFileDescriptor(addrinfo);
     activeReuseAddress();

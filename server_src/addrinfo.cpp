@@ -1,8 +1,8 @@
 #include "addrinfo.h"
 
-/******************* Métodos Privados de Addrinfo ****************************/
+/******************* Métodos Privados de HandlerAddrinfo ****************************/
 
-void Addrinfo::init(const int flag) {
+void HandlerAddrinfo::init(const int flag) {
     struct addrinfo *_hints = &this->hints;
     memset(_hints, 0, sizeof(struct addrinfo));
 	_hints->ai_family = AF_INET;       
@@ -12,36 +12,24 @@ void Addrinfo::init(const int flag) {
 }
 
 
-/******************* Métodos Públicos de Addrinfo ****************************/
+/******************* Métodos Públicos de HandlerAddrinfo ****************************/
 
-Addrinfo::Addrinfo(const char* host, const char* port, const int flag): 
+HandlerAddrinfo::HandlerAddrinfo(const char* host, const char* port, const int flag): 
     hints() {
     init(flag);
 }
 
-Addrinfo::~Addrinfo() {
+HandlerAddrinfo::~HandlerAddrinfo() {
     if (this->addr) 
         freeaddrinfo(this->addr);
 }
 
-void Addrinfo::callGetAddrinfo(const char* host, const char* port) {
+void HandlerAddrinfo::callGetAddrinfo(const char* host, const char* port) {
     if (getaddrinfo(host, port, &this->hints, &this->addr) < 0)
         throw std::runtime_error("Socket address cannot be set.");
 }
 
-int Addrinfo::getFamily() const {
-    return this->addr->ai_family;
-}
-
-int Addrinfo::getType() const {
-    return this->addr->ai_socktype;
-}
-
-int Addrinfo::getProtocol() const {
-    return this->addr->ai_protocol;
-}
-
-void Addrinfo::bindAddress(const int fd) {
+void HandlerAddrinfo::bindAddress(const int fd) {
     struct addrinfo *aux_addr; 
 	for (aux_addr = addr; aux_addr; aux_addr = aux_addr->ai_next)
 		if (bind(fd, aux_addr->ai_addr, aux_addr->ai_addrlen) > -1) break;
@@ -49,7 +37,7 @@ void Addrinfo::bindAddress(const int fd) {
         throw std::runtime_error("Bind address failed.");
 }
 
-void Addrinfo::connectAddress(int& fd) {
+void HandlerAddrinfo::connectAddress(int& fd) {
     struct addrinfo *aux;
 	for (aux = this->addr; aux; aux = aux->ai_next) {
 		fd = socket(aux->ai_family, aux->ai_socktype, aux->ai_protocol);
@@ -59,4 +47,15 @@ void Addrinfo::connectAddress(int& fd) {
 			close(fd);
 	}
 	if (!aux) throw std::runtime_error("Conection to server failed.");
+}
+
+int HandlerAddrinfo::openSocket() const {
+	int skt_fd;
+	skt_fd = socket(
+		this->addr->ai_family, 
+		this->addr->ai_socktype, 
+		this->addr->ai_protocol);
+	if (skt_fd == -1) 
+        throw std::runtime_error("Socket file descriptor cannot be set.");
+	return skt_fd;
 }
