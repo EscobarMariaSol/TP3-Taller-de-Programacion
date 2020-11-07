@@ -12,6 +12,7 @@ private:
     std::fstream file;
     
 public:
+    IOHandler();
     IOHandler(const std::string path);
     ~IOHandler();
     void getInput(std::stringbuf& buffer);

@@ -4,12 +4,6 @@
 
 /******************* Métodos Privados de Server ******************************/
 
-void Server::saveRoot() {
-    std::stringbuf root;
-    this->io_handler.getInput(root);
-    this->resourcer.addResource("/", root.str());
-}
-
 void Server::recvRequest(Socket& peer, std::stringbuf& request) {
     int recv = 0;
     char buffer[BUFFER_TAM] = {0};
@@ -28,17 +22,16 @@ void Server::sendResponse(Socket& peer, const Response *response) {
 
 /******************* Métodos Públicos de Server ******************************/
 
-Server::Server(const char *port, const std::string path): 
+Server::Server(const char *port, Resourcer& resourcer): 
     socket(port), 
-    resourcer(), 
-    io_handler(path) {
+    resourcer(resourcer), 
+    io_handler() {
 }
 
 Server::~Server() {
 }
 
 void Server::run() {
-    saveRoot();
     Socket accept_socket;
     this->socket.accept_client(accept_socket);
     std::stringbuf request;

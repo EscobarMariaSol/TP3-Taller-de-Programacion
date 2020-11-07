@@ -19,6 +19,7 @@ Resourcer& Resourcer::operator=(const Resourcer& other) {
 
 void Resourcer::addResource(const std::string& resource_name, 
     const std::string& resource_value) {
+    std::lock_guard<std::mutex> lock(this->mutex);
     if (this->resources.insert(
             std::pair<std::string, std::string>(
                 resource_name, resource_value)).second == false) {
@@ -26,14 +27,16 @@ void Resourcer::addResource(const std::string& resource_name,
     }
 }
 
-std::string Resourcer::getResourceValue(const std::string resource_name) const {
+std::string Resourcer::getResourceValue(const std::string resource_name) {
+    std::lock_guard<std::mutex> lock(this->mutex);
     std::map<std::string, std::string>::const_iterator it;
     it = this->resources.find(resource_name);
     if (it == this->resources.end()) return "";
     return std::move(it->second);
 }
 
-bool Resourcer::containsResource(const std::string resource_name) const {
+bool Resourcer::containsResource(const std::string resource_name) {
+    std::lock_guard<std::mutex> lock(this->mutex);
     std::map<std::string, std::string>::const_iterator it;
     it = this->resources.find(resource_name);
     return (it != this->resources.end());

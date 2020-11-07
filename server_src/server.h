@@ -2,13 +2,15 @@
 #define SERVER_H
 
 #include "../common_src/socket.h"
-#include "resourcer.h"
 #include "../common_src/response.h"
 #include "../common_src/io_handler.h"
+#include "../common_src/thread.h"
 #include "protocol.h"
+#include "resourcer.h"
 #include <mutex>
+#include <thread>
 
-class Server {
+class Server: public Thread {
 private:
     std::mutex mutex;
     Socket socket;
@@ -19,7 +21,7 @@ private:
     void sendResponse(Socket& peer, const Response *response);
 
 public:
-    Server(const char *port, const std::string path);
+    Server(const char *port, Resourcer& resourcer);
     ~Server();
     void run();
 };

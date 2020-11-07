@@ -23,7 +23,7 @@ void Client::recvResponse(std::stringbuf& response) {
 /******************* Métodos Públicos de Client ******************************/
 
 Client::Client(const char* host, const char* port): 
-    socket(host, port), handler("") {
+    socket(host, port), handler() {
 }
 
 Client::~Client() {

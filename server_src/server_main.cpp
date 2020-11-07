@@ -1,8 +1,8 @@
-#include "server.h"
+#include "server_program.h"
 
 int main(int argc, char *argv[]){
-    Server server(argv[1], std::string(argv[2]));
-    server.run();
+    ServerProgram server;
+    server.startRunning(argv[1], std::string(argv[2]));
 
     return 0;
 }

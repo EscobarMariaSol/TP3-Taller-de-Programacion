@@ -4,6 +4,7 @@
 #include <map>
 #include <functional>
 #include <iostream>
+#include <mutex>
 
 // Clase que almacena los recursos 
 // Cuenta con los siguientes parámetros
@@ -11,6 +12,7 @@
 class Resourcer {
 private:
     std::map<std::string, std::string> resources;
+    std::mutex mutex;
     
 public:
     Resourcer();
@@ -19,8 +21,8 @@ public:
     Resourcer& operator=(const Resourcer& other);
     void addResource(const std::string& resource_name, 
         const std::string& resource_value);
-    std::string getResourceValue(const std::string resource_name) const;
-    bool containsResource(const std::string resource_name) const;
+    std::string getResourceValue(const std::string resource_name);
+    bool containsResource(const std::string resource_name);
 };
 
 #endif // RESOURCER_H

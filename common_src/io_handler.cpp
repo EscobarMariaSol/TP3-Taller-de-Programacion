@@ -1,6 +1,7 @@
 #include "io_handler.h"
 
-#define MAX_READ 64
+IOHandler::IOHandler(){
+}
 
 IOHandler::IOHandler(const std::string path) {
     if (!path.empty()) {

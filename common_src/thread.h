@@ -4,10 +4,9 @@
 #include <utility>
 #include <thread>
 
-// Clase encargada de crear un thread para cada checker y ejecutar el
-// correspondiente verificador
+// Clase encargada de crear un thread
 // Cuenta con un único atributo correspondiente al thread que se lanzará
-// para cada instacia de un Checker
+// para cada instacia 
 class Thread {
 private:
     std::thread thread;

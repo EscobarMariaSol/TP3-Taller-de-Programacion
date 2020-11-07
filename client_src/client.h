@@ -4,8 +4,9 @@
 #include "../common_src/socket.h"
 #include "../common_src/io_handler.h"
 #include "../common_src/response.h"
+#include "../common_src/thread.h"
 
-class Client {
+class Client: public Thread {
 private:
     Socket socket;
     IOHandler handler;
