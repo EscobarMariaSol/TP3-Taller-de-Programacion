@@ -29,3 +29,7 @@ void IOHandler::getInput(std::stringbuf& buffer) {
 void IOHandler::setOutput(const std::stringbuf& msg) {
     std::cout << msg.str();
 }
+
+void IOHandler::getChar(char& c) {
+    std::cin.read(&c, 1);
+}

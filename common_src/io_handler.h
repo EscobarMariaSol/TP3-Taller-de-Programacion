@@ -17,6 +17,7 @@ public:
     ~IOHandler();
     void getInput(std::stringbuf& buffer);
     void setOutput(const std::stringbuf& msg);
+    void getChar(char& c);
 };
 
 #endif // IO_HANDLER

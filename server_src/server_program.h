@@ -3,6 +3,7 @@
 
 #include "resourcer.h"
 #include "server.h"
+#include <iostream>
 
 class ServerProgram {
 private:
