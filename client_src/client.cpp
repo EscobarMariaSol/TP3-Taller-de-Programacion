@@ -5,19 +5,19 @@
 /******************* Métodos Privados de Client ******************************/
 
 void Client::sendRequest(const std::stringbuf& buffer) {
-    this->socket.send_msg(buffer.str().c_str(), buffer.str().size());
-    this->socket.stopComunication(SHUT_WR);
+    this->socket.send(buffer.str().c_str(), buffer.str().size());
+    this->socket.shutdown(SHUT_WR);
 }
 
 void Client::recvResponse(std::stringbuf& response) {
     int recv = 0;
     char buffer[BUFFER_TAM] = {0};
     do {
-		if ((recv = this->socket.recv_msg(buffer, BUFFER_TAM)) == -1);
+		if ((recv = this->socket.recv(buffer, BUFFER_TAM)) == -1);
 		response.sputn(buffer, recv);
 		memset(buffer, 0, BUFFER_TAM);	
 	} while (recv > 0);
-    this->socket.stopComunication(SHUT_RD);
+    this->socket.shutdown(SHUT_RD);
 }
 
 /******************* Métodos Públicos de Client ******************************/

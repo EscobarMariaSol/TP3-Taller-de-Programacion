@@ -42,6 +42,9 @@ public:
     // Método que se hereda de thread, el cual se emplea para indicarle 
     // al thread que debe detener su ejecución ordenadamente
     void stop() override;
+    // Método para consultar si un thread finalizó su ejecición y está
+    // a la espera de un join
+    bool hasFinished() const;
 };
 
 #endif // THREAD_CLIENT_H

@@ -5,14 +5,15 @@
 #include <unistd.h>
 #include <cstring>
 #include <netdb.h>
-#include <atomic>
+#include <mutex>
 #include <string>
 #include <functional>
 #include "addrinfo.h"
 
 
 // Clase correspondiente a un socket
-// La clase cuenta con un único atributo correspondiente a su file descriptor.
+// La clase cuenta con los siguientes atributos:
+// fd, atributo correspondiente a su file descriptor.
 class Socket {
 private:
     int fd;
@@ -49,19 +50,22 @@ public:
     // Crea el socket aceptador en representación de la conexión establecida
     // Pre: Recibe una referencia a un nuevo socket
     // que funcionará como canal de comunicación
-    void accept_client(Socket& accept_socket);
+    void accept(Socket& accept_socket);
     // Recive un mensaje desde otro socket y lo almacena en el buffer
     // Pre: Recibe un un buffer y la cantidad de bytes a enviar
     // Post: 
-    int send_msg(const char *buffer, const size_t size);
+    int send(const char *buffer, const size_t size);
     // Envia mensajes de un socket a otro
     // Pre: un buffer y la cantidad de bytes a recibir
     // Post: 
-    int recv_msg(char *buffer, const size_t size);
+    int recv(char *buffer, const size_t size);
     // Cierra el canal de comunicación especificado del socket
     // Pre: recibe un canal de comunicación válido
     // Pos: el cana ha sido cerrado
-    void stopComunication(int channel);
+    void shutdown(int channel);
+    // Cierra el file descriptor del socket
+    // Pos: el file descriotor ha sido cerrado
+    void close();
 };
 
 #endif // COMMON_SOCKET_H
