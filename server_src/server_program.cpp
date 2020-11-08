@@ -1,10 +1,14 @@
 #include "server_program.h"
 
+/************************** Métodos privados de ServerProgram ***************/
+
 void ServerProgram::saveRoot(IOHandler& io_handler) {
     std::stringbuf root;
     io_handler.getInput(root);
     this->resourcer.addResource("/", root.str());
 }
+
+/************************** Métodos públicos de ServerProgram ****************/
 
 ServerProgram::ServerProgram(): resourcer() {
 }
@@ -22,6 +26,7 @@ void ServerProgram::startRunning(const char *port, const std::string path) {
     while (quit != 'q') {
         io_handler.getChar(quit);
     }
+    server->stop();
     server->join();
     delete server;
 }

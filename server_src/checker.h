@@ -13,7 +13,7 @@ public:
     ~Checker();
     bool isAValidMethod() const;
     bool isAPost() const;
-    bool isAValidPostResource() const;
+    bool isRootResource() const;
 };
 
 #endif // CHECKER_H

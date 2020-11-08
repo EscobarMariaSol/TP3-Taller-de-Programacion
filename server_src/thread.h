@@ -28,6 +28,9 @@ public:
     // el método es virtual puro, pues ha de ser implementado por las clases 
     // que hereden de Thread
     virtual void run() = 0;
+    // Método que se encarga de decirle a un thread que debe detener
+    // la ejecución ordenadamente.
+    virtual void stop() = 0;
     // Impide que se realice una copia del Thread
     Thread(const Thread& other) = delete;
     // Impide que se realice una asignación del Thread

@@ -23,6 +23,6 @@ bool Checker::isAValidMethod() const {
     return (isAGet() || isAPost());
 }
 
-bool Checker::isAValidPostResource() const {
+bool Checker::isRootResource() const {
     return (this->request.second != "/");
 }

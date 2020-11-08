@@ -40,6 +40,10 @@ public:
     Socket(const char* host, const char* port);
     // Constructor Server
     explicit Socket(const char *port);
+    // Constructor por referencia
+    Socket(Socket& other);
+    // Método que permite que se realice una asignación por referencia
+    Socket& operator=(Socket& other);
     // Destructor
     virtual ~Socket();
     // Crea el socket aceptador en representación de la conexión establecida
@@ -55,6 +59,8 @@ public:
     // Post: 
     int recv_msg(char *buffer, const size_t size);
     // Cierra el canal de comunicación especificado del socket
+    // Pre: recibe un canal de comunicación válido
+    // Pos: el cana ha sido cerrado
     void stopComunication(int channel);
 };
 

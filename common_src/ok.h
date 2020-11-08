@@ -2,15 +2,15 @@
 #define OK_H
 
 #include "response.h"
+#include <functional>
 
 class Ok: public Response {
 private: 
     std::string value;
 
 public:
-    Ok(const std::string& value);
+    explicit Ok(const std::string& value);
     ~Ok();
-    void setResponseValue(const std::string& value);
     std::pair<std::string, std::string> getResponse() const override;
     void serialize(std::stringbuf& str_serialize) const override;
 };

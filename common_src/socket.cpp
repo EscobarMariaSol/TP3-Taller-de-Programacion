@@ -1,5 +1,6 @@
 #define _POSIX_C_SOURCE 201112L
 #include "socket.h"
+#include <iostream>
 
 /******************* Métodos Privados de ServerSocket ************************/
 
@@ -51,12 +52,22 @@ Socket::Socket(const char* host, const char* port): Socket() {
 
 /*************************** Métodos compartidos *****************************/
 
+Socket::Socket(Socket& other) {
+	this->fd = std::ref(other.fd);
+}
+
+Socket& Socket::operator=(Socket& other) {
+	this->fd = std::ref(other.fd);
+	return *this;
+}
+
+
 int Socket::send_msg(const char *buffer, size_t size) {
 	size_t total = 0, sent = 0;
 	do {
 		sent = send(this->fd, &buffer[total], size-total, MSG_NOSIGNAL);
 		if (sent > 0)  total += sent;
-	} while ((sent > 0) && (total < size));
+	} while ((sent >= 0) && (total < size));
 	if (sent < 0) throw std::runtime_error("Sent message fail.");
 	return total;
 }
