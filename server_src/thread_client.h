@@ -33,7 +33,7 @@ private:
 
 public:
     // Constructor
-    ThreadClient(Socket& peer, Resourcer& resourcer);
+    ThreadClient(Socket&& peer, Resourcer& resourcer);
     // Destructor
     ~ThreadClient();
     // Método que se hereda de Thread, es a través del cual se lanzará la 

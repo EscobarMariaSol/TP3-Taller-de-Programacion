@@ -10,6 +10,7 @@
 #include "resourcer.h"
 #include <thread>
 #include <functional>
+#include <list>
 
 // Clase correspondiente al thread servidor, que se encarga de aceptar
 // nuevos cliente y despacharlos

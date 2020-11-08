@@ -22,7 +22,7 @@ void Socket::bindAndListen(HandlerAddrinfo& addr) {
 
 /******************* Métodos Públicos de Socket (peer) ***********************/
 
-Socket::Socket() {
+Socket::Socket(int& fd): fd(fd) {
 }
 
 void Socket::close() {
@@ -43,11 +43,11 @@ Socket::Socket(const char *port) {
     bindAndListen(addrinfo);
 }
 
-void Socket::accept(Socket& accept_socket) {
+Socket Socket::accept() {
     int fd = ::accept(this->fd, NULL, NULL);
 	if (fd == -1) 
         throw std::runtime_error("Server cannot accept client.");
-    accept_socket.fd = fd;
+    return std::move(Socket(fd));
 }
 
 /***************************** Cliente ***************************************/
@@ -60,12 +60,18 @@ Socket::Socket(const char* host, const char* port) {
 
 /*************************** Métodos compartidos *****************************/
 
-Socket::Socket(Socket& other) {
-	this->fd = std::ref(other.fd);
+Socket::Socket(Socket&& other) {
+	if (&other != this) {
+		this->fd = std::move(other.fd);
+		other.fd = -1;
+	}
 }
 
-Socket& Socket::operator=(Socket& other) {
-	this->fd = std::ref(other.fd);
+Socket& Socket::operator=(Socket&& other) {
+	if (&other != this) {
+		this->fd = std::move(other.fd);
+		other.fd = -1;
+	}
 	return *this;
 }
 
@@ -92,6 +98,7 @@ int Socket::recv(char *buffer, const size_t size) {
 
 Socket::~Socket() {
     if (this->fd != -1) {
+		::shutdown(this->fd, SHUT_RDWR);
 		::close(this->fd);
 	}
 }

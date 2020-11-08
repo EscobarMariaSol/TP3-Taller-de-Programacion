@@ -1,5 +1,11 @@
 #include "server.h"
 
+/******************* Funciones auxiliares de Server ******************************/
+
+static bool is_dead(const ThreadClient *client) {
+    return (client == nullptr);
+}
+
 /******************* Métodos Públicos de Server ******************************/
 
 Server::Server(const char *port, Resourcer& resourcer): 
@@ -13,16 +19,26 @@ Server::~Server() {
 }
 
 void Server::run() {
+    std::list<ThreadClient*> clients;
     while (this->keep_running) {   
         try {
-            Socket accept_socket;
-            this->socket.accept(accept_socket);
-            ThreadClient *client = new ThreadClient(accept_socket, this->resourcer);
+            Socket accept_socket = this->socket.accept();
+            ThreadClient *client = new ThreadClient(
+                std::move(accept_socket), std::ref(this->resourcer));
+            clients.push_back(client);
             client->start();
-            client->join();
-            delete client;
+            for (std::list<ThreadClient*>::iterator client = clients.begin();
+                client != clients.end(); ++client) {
+                if ((*client)->hasFinished()) {
+                    (*client)->join();
+                    delete (*client);
+                    (*client) = nullptr;
+                }
+            }
+            clients.remove_if(is_dead);
         } catch(const std::runtime_error& e) {
-            break;
+            std::string error = e.what();
+            if (error == "Server cannot accept client." ) break;
         }
     }
 }

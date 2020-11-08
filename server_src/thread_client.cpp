@@ -24,8 +24,8 @@ void ThreadClient::sendResponse(const Response *response) {
 
 /******************* Métodos Públicos de ThreadClient ************************/
 
-ThreadClient::ThreadClient(Socket& peer, Resourcer& resourcer): 
-    peer(peer), 
+ThreadClient::ThreadClient(Socket&& peer, Resourcer& resourcer): 
+    peer(std::move(peer)), 
     resourcer(resourcer), 
     running(true) {
 }

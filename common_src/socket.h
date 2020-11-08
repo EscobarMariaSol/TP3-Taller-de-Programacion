@@ -36,21 +36,26 @@ private:
     
 public:
     // Constructor 
-    Socket();
+    explicit Socket(int& fd);
     // Constructor Client
     Socket(const char* host, const char* port);
     // Constructor Server
     explicit Socket(const char *port);
-    // Constructor por referencia
-    Socket(Socket& other);
-    // Método que permite que se realice una asignación por referencia
-    Socket& operator=(Socket& other);
+    // Impido que se llame al constructor por copia
+    Socket(const Socket& other) = delete;
+    // Impido que se utilice un método que permite que se realice 
+    // una copia del socket
+    Socket& operator=(const Socket& other) = delete;
+    // Constructor por movimiento
+    Socket(Socket&& other);
+    // Método que permite que se realice una asignación por movimiento
+    Socket& operator=(Socket&& other);
     // Destructor
     virtual ~Socket();
     // Crea el socket aceptador en representación de la conexión establecida
-    // Pre: Recibe una referencia a un nuevo socket
+    // Pos: devuelve una referencia a un nuevo socket
     // que funcionará como canal de comunicación
-    void accept(Socket& accept_socket);
+    Socket accept();
     // Recive un mensaje desde otro socket y lo almacena en el buffer
     // Pre: Recibe un un buffer y la cantidad de bytes a enviar
     // Post: 
