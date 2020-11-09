@@ -6,11 +6,14 @@
 #include <string>
 #include <sstream>
 
-// clase correspondiente a la respuesta Not found
+// Clase correspondiente a la respuesta Not found del protocolo http
 class NotFound: public Response {
 public:
+    // Constructor
     NotFound();
+    // Destructor
     ~NotFound();
+    // Método heredado de la clase Response
     void getResponse(std::stringbuf& str_serialize) override;
 };
 

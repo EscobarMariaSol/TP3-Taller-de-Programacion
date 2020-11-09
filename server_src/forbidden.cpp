@@ -1,5 +1,7 @@
 #include "forbidden.h"
 
+/******************** Métodos públicos de la clase Forbidden *****************/
+
 Forbidden::Forbidden(): Response() {
 }
 

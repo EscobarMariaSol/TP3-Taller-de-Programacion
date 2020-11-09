@@ -1,5 +1,7 @@
 #include "not_allowed.h"
 
+/****************** Métodos públicos de la clase NotAllowed ******************/
+
 NotAllowed::NotAllowed(const std::string& value): Response(), value(value) {
 }
 

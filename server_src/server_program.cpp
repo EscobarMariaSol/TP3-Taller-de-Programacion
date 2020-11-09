@@ -12,7 +12,6 @@ void ServerProgram::stopServer(Server* server) {
     server->stop();
     server->join();
     delete server;
-    server = 0;
 }
 /************************** Métodos públicos de ServerProgram ****************/
 

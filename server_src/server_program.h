@@ -33,7 +33,8 @@ public:
     // Método que lanza se encarga de lanzar 
     // la ejecución del thread servidor y de esperar hasta que el usuario
     // decida detener la ejecución del programa
-    // Pre: recibe un puerto y ruta de archivos válidos
+    // Pre: recibe un puerto en el cual escuchará a los clientes
+    // y ruta de archivos válidos
     // Pos: el servidor ha iniciado su ejecución
     void startRunning(const char *port, const std::string& path);
 };

@@ -7,24 +7,20 @@
 #include "resourcer.h"
 #include "checker.h"
 #include "parser.h"
-#include "../common_src/response.h"
-#include "../common_src/ok.h"
-#include "../common_src/not_allowed.h"
-#include "../common_src/not_found.h"
-#include "../common_src/forbidden.h"
+#include "response.h"
+#include "ok.h"
+#include "not_allowed.h"
+#include "not_found.h"
+#include "forbidden.h"
 
 // Clase correspondiente al Protocolo que despacha petitorios Http
 // Cuenta con los siguientes atributos:
 // resorcer, correspondiente al repositorio compartido ene el cual se 
 // guardan los recursos creados/accedidos por los clientes
-// parser, correspondiente al parser que se encarga de extraer
-// la solicitud que se encuentra dentro del petitorio
 class HttpProtocol{
 private:
     Resourcer resourcer;
-    Parser parser;
-    Response* handlePostRequest(const Checker& checker, 
-        const std::string& content, 
+    Response* handlePostRequest(const Checker& checker, const Parser& parser,
         const std::pair<std::string, std::string>& line);
     Response* handleGetRequest(const Checker& checker, 
         const std::pair<std::string, std::string>& line);

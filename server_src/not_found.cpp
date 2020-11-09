@@ -1,5 +1,7 @@
 #include "not_found.h"
 
+/******************** Métodos públicos de la clase NotFound ******************/
+
 NotFound::NotFound(): Response() {
 }
 

@@ -3,9 +3,8 @@
 /**************** Métodos Privados de HttpProtocol ***************************/
 
 Response* HttpProtocol::handlePostRequest(const Checker& checker, 
-    const std::string& content, 
-    const std::pair<std::string, std::string>& line) {
-    std::string response_value = this->parser.parseResourceValue(content);
+    const Parser& parser, const std::pair<std::string, std::string>& line) {
+    std::string response_value = parser.parseResourceValue();
     if (!checker.isRootResource()) return new Forbidden();
     this->resourcer.addResource(
         line.second, response_value);
@@ -33,11 +32,12 @@ HttpProtocol::~HttpProtocol() {
 
 Response* HttpProtocol::handleRequestResponse(const std::string& content) {
     std::pair<std::string, std::string> line;
-    line = this->parser.parseRequest(content);
+    Parser parser(content);
+    line = parser.parseRequest();
     Checker checker(line);
     if (!checker.isAValidMethod()) return new NotAllowed(line.first);
     else if (checker.isAPost()) 
-        return handlePostRequest(checker, content, line);
+        return handlePostRequest(checker, parser, line);
     return handleGetRequest(checker, line);
 }
 

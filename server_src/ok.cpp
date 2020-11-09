@@ -1,5 +1,7 @@
 #include "ok.h"
 
+/************************ Métodos públicos de la clase OK ********************/
+
 Ok::Ok(const std::string& value): Response(), value(value) {
 }
 

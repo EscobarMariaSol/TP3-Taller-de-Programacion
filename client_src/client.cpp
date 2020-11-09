@@ -30,10 +30,14 @@ Client::~Client() {
 }
 
 void Client::run() {
-    std::stringbuf buffer;
-    handler.getInput(buffer);
-    sendRequest(buffer);
-    std::stringbuf response;
-    recvResponse(response);
-    handler.setOutput(response);
+    try {
+        std::stringbuf buffer;
+        handler.getInput(buffer);
+        sendRequest(buffer);
+        std::stringbuf response;
+        recvResponse(response);
+        handler.setOutput(response);
+    } catch(const std::exception& e) {
+            std::cout << "Error: "<< e.what() << "\n";
+    }
 }

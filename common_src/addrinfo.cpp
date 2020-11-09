@@ -11,7 +11,6 @@ void HandlerAddrinfo::init(const int flag) {
 	_hints->ai_protocol = 0; 
 }
 
-
 /******************* Métodos Públicos de HandlerAddrinfo *********************/
 
 HandlerAddrinfo::HandlerAddrinfo(const int flag): 
@@ -56,6 +55,6 @@ int HandlerAddrinfo::openSocket() const {
 		this->addr->ai_socktype, 
 		this->addr->ai_protocol);
 	if (skt_fd == -1) 
-        throw std::runtime_error("Socket file descriptor cannot be set.");
+        throw std::runtime_error("Socket file descriptor cannot be open.");
 	return skt_fd;
 }

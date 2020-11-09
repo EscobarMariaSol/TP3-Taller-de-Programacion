@@ -2,8 +2,8 @@
 #define SERVER_H
 
 #include "../common_src/socket.h"
-#include "../common_src/response.h"
 #include "../common_src/io_handler.h"
+#include "response.h"
 #include "thread.h"
 #include "thread_client.h"
 #include "protocol.h"
