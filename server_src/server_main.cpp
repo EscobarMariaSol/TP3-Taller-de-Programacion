@@ -9,7 +9,11 @@
 int main(int argc, char *argv[]){
     if (argc == 3) {    
         ServerProgram server;
-        server.startRunning(argv[1], std::string(argv[2]));
+        try {
+           server.startRunning(argv[1], std::string(argv[2]));
+        } catch(const std::exception& e) {
+            std::cout << "Error: "<< e.what() << "\n";
+        }
     }
     return 0;
 }

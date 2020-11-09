@@ -12,7 +12,7 @@ void ServerProgram::stopServer(Server* server) {
     server->stop();
     server->join();
     delete server;
-    server = nullptr;
+    server = 0;
 }
 /************************** Métodos públicos de ServerProgram ****************/
 
@@ -24,19 +24,18 @@ ServerProgram::~ServerProgram()
 }
 
 void ServerProgram::startRunning(const char *port, const std::string& path) {
-    Server *server = nullptr;
-    char quit = 0;
+    IOHandler io_handler(path);
+    saveRoot(io_handler);
+    Server *server = new Server(port, std::ref(this->resourcer));
     try {
-        IOHandler io_handler(path);
-        saveRoot(io_handler);
-        server = new Server(port, std::ref(this->resourcer));
+        char quit = 0;
         server->start();
         while (quit != 'q') {
             io_handler.getChar(quit);
         }
         stopServer(server);
     } catch(const std::runtime_error& e) {
-        if (server != nullptr) stopServer(server);
+        if (server) stopServer(server);
         std::cout << "Error: "<< e.what() << "\n";
     }
 }

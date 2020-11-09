@@ -1,7 +1,11 @@
 #include "client.h"
 
 int main(int argc, char *argv[]){
-    Client client(argv[1], argv[2]);
-    client.run();
+    try {
+        Client client(argv[1], argv[2]);
+        client.run();
+    } catch(const std::exception& e) {
+            std::cout << "Error: "<< e.what() << "\n";
+    }
     return 0;
 }
