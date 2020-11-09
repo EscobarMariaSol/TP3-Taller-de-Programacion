@@ -31,7 +31,7 @@ private:
     // Pre: el cliente ha enviado un petitorio previamente y el mismo ha
     // sido procesado
     // Pos: la respuesta al petitorio del cliente se ha enviado
-    void sendResponse(const Response *response);
+    void sendResponse(Response *response);
 
 public:
     // Constructor

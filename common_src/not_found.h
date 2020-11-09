@@ -11,8 +11,7 @@ class NotFound: public Response {
 public:
     NotFound();
     ~NotFound();
-    std::pair<std::string, std::string> getResponse() const override;
-    void serialize(std::stringbuf& str_serialize) const override;
+    void getResponse(std::stringbuf& str_serialize) override;
 };
 
 #endif // NOT_FOUND_H

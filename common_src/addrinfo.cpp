@@ -15,7 +15,7 @@ void HandlerAddrinfo::init(const int flag) {
 /******************* Métodos Públicos de HandlerAddrinfo *********************/
 
 HandlerAddrinfo::HandlerAddrinfo(const int flag): 
-    hints() {
+    hints(), addr() {
     init(flag);
 }
 

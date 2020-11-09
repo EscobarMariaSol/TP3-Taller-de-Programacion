@@ -15,8 +15,7 @@ private:
 public:
     explicit Ok(const std::string& value);
     ~Ok();
-    std::pair<std::string, std::string> getResponse() const override;
-    void serialize(std::stringbuf& str_serialize) const override;
+    void getResponse(std::stringbuf& str_serialize) override;
 };
 
 #endif // OK_H

@@ -15,9 +15,9 @@ void ThreadClient::recvRequest(std::stringbuf& request) {
     this->peer.shutdown(SHUT_RD);
 }
 
-void ThreadClient::sendResponse(const Response *response) {
+void ThreadClient::sendResponse(Response *response) {
     std::stringbuf str_request; 
-    response->serialize(str_request);
+    response->getResponse(str_request);
     this->peer.send(str_request.str().c_str(), str_request.str().size());
     this->peer.shutdown(SHUT_WR);
 }

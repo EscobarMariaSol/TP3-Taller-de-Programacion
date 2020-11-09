@@ -11,8 +11,7 @@ class Forbidden: public Response {
 public:
     Forbidden();
     ~Forbidden();
-    std::pair<std::string, std::string> getResponse() const override;
-    void serialize(std::stringbuf& str_serialize) const override;
+    void getResponse(std::stringbuf& str_serialize) override;
 };
 
 #endif // FORBIDDEN_H
