@@ -17,7 +17,7 @@ private:
     void init(const int flag);
 
 public:
-    HandlerAddrinfo(const int flag);
+    explicit HandlerAddrinfo(const int flag);
     ~HandlerAddrinfo();
     void callGetAddrinfo(const char* host, const char* port);
     int openSocket() const;
