@@ -3,7 +3,9 @@
 // Programa principal que lanza la ejeción del servidor
 // Pre: recibe el puerto y la ruta del archivo root del
 // servidor
-// Pos: el programa ha sido ejecutado
+// Pos: el programa se ejecuta y devuelve 0 en cualquier caso,
+// si se detecta un error durante la ejecución se imprimirá un mensaje
+// que informe al respecto
 int main(int argc, char *argv[]){
     if (argc == 3) {    
         ServerProgram server;

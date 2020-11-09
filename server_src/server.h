@@ -29,6 +29,23 @@ private:
     Resourcer resourcer;
     IOHandler io_handler;
     std::atomic<bool> keep_running;
+    // Método que agrega clientes a la lista de clientes conectados
+    // Pre: recibe la lista de clientes
+    // Pos: los clientes que se conectan se agregan a la lista de clientes
+    void addClients(std::list<ThreadClient*>& clients);
+    // Método que se encarga de recorrer la lista de clientes conectados,
+    // detectar a los que funalizaron su ejecución y eliminarlos
+    // Pre: recibe una lista de los clientes despachados
+    // Pos: los clientes que hayan finalizado se liberan y su lugar
+    // queda invalidado
+    void cleanClients(std::list<ThreadClient*>& clients);
+    // Método que cierra todas las conecciones con los clientes
+    // informandoles que deben detener su ejecución y luego liberando
+    // los recursos utilizados
+    // Pre: recibe una lista de clientes
+    // Pos: los clientes han sido detenidos y los recursos utilizados
+    // se han liberado
+    void stopAndCleanClients(std::list<ThreadClient*>& clients);
 
 public:
     // Constructor
