@@ -4,9 +4,9 @@
 #include <string>
 #include <fstream>
 #include "resourcer.h"
-#include "../common_src/response.h"
 #include "checker.h"
 #include "parser.h"
+#include "../common_src/response.h"
 #include "../common_src/ok.h"
 #include "../common_src/not_allowed.h"
 #include "../common_src/not_found.h"

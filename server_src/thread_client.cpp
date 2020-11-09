@@ -26,7 +26,7 @@ void ThreadClient::sendResponse(const Response *response) {
 
 ThreadClient::ThreadClient(Socket&& peer, Resourcer& resourcer): 
     peer(std::move(peer)), 
-    resourcer(resourcer), 
+    resourcer(std::ref(resourcer)), 
     running(true) {
 }
 

@@ -8,6 +8,9 @@ static bool is_dead(const ThreadClient *client) {
 
 /******************* Métodos Públicos de Server ******************************/
 
+
+/******************* Métodos Públicos de Server ******************************/
+
 Server::Server(const char *port, Resourcer& resourcer): 
     socket(port), 
     resourcer(resourcer), 
@@ -38,8 +41,15 @@ void Server::run() {
             clients.remove_if(is_dead);
         } catch(const std::runtime_error& e) {
             std::string error = e.what();
-            if (error == "Server cannot accept client." ) break;
+            if ((error == "Server cannot accept client." ) 
+                && !this->keep_running) break;
         }
+    }
+    for (std::list<ThreadClient*>::iterator client = clients.begin();
+        client != clients.end(); ++client) {
+        (*client)->stop();
+        (*client)->join();
+        delete (*client);
     }
 }
 

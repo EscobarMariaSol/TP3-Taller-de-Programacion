@@ -32,7 +32,7 @@ std::string Resourcer::getResourceValue(const std::string resource_name) {
     std::map<std::string, std::string>::const_iterator it;
     it = this->resources.find(resource_name);
     if (it == this->resources.end()) return "";
-    return std::move(it->second);
+    return it->second;
 }
 
 bool Resourcer::containsResource(const std::string resource_name) {
