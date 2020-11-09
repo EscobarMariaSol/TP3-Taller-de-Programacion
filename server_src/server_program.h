@@ -5,6 +5,7 @@
 #include "server.h"
 #include <iostream>
 #include <atomic>
+#include <string>
 
 // Clase correspondiente al Server principal
 // Cuenta con un único atributo correspondiente al repositorio
@@ -30,7 +31,7 @@ public:
     // decida detener la ejecución del programa
     // Pre: recibe un puerto y ruta de archivos válidos
     // Pos: el servidor ha iniciado su ejecución
-    void startRunning(const char *port, const std::string path);
+    void startRunning(const char *port, const std::string& path);
 };
 
 #endif // SERVER_PROGRAM_H

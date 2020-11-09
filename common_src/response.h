@@ -1,10 +1,12 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
-#include <string>
-#include <functional>
 #include <sstream>
+#include <string>
+#include <utility>
 
+// Clase Abstracta correspondiente a la clase respuesta del 
+// protocolo http.
 class Response {
 public:
     Response();

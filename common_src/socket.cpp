@@ -1,6 +1,5 @@
 #define _POSIX_C_SOURCE 201112L
 #include "socket.h"
-#include <iostream>
 
 /******************* Métodos Privados de ServerSocket ************************/
 
@@ -22,7 +21,7 @@ void Socket::bindAndListen(HandlerAddrinfo& addr) {
 
 /******************* Métodos Públicos de Socket (peer) ***********************/
 
-Socket::Socket(int& fd): fd(fd) {
+Socket::Socket(const int& fd): fd(fd) {
 }
 
 void Socket::close() {
@@ -36,7 +35,7 @@ void Socket::shutdown(int channel) {
 /***************************** Servidor **************************************/
 
 Socket::Socket(const char *port) {
-    HandlerAddrinfo addrinfo(NULL, port, AI_PASSIVE);
+    HandlerAddrinfo addrinfo(AI_PASSIVE);
 	addrinfo.callGetAddrinfo(NULL, port);
 	setFileDescriptor(addrinfo);
     activeReuseAddress();
@@ -45,15 +44,16 @@ Socket::Socket(const char *port) {
 
 Socket Socket::accept() {
     int fd = ::accept(this->fd, NULL, NULL);
-	if (fd == -1) 
+	if (fd == -1) {
         throw std::runtime_error("Server cannot accept client.");
+	}
     return std::move(Socket(fd));
 }
 
 /***************************** Cliente ***************************************/
 
 Socket::Socket(const char* host, const char* port) {
-    HandlerAddrinfo addrinfo(host, port, 0);
+    HandlerAddrinfo addrinfo(0);
 	addrinfo.callGetAddrinfo(host, port);
     addrinfo.connectAddress(this->fd);
 }
@@ -77,7 +77,8 @@ Socket& Socket::operator=(Socket&& other) {
 
 
 int Socket::send(const char *buffer, size_t size) {
-	size_t total = 0, sent = 0;
+	size_t total = 0;
+	int sent = 0;
 	do {
 		sent = ::send(this->fd, &buffer[total], size-total, MSG_NOSIGNAL);
 		if (sent > 0)  total += sent;
@@ -87,11 +88,12 @@ int Socket::send(const char *buffer, size_t size) {
 }
 
 int Socket::recv(char *buffer, const size_t size) {
-	size_t total = 0, received = 0;
+	size_t total = 0;
+	int received = 0;
 	do {
 		received = ::recv(this->fd, (buffer + total), (size-total), 0);
 		if (received > 0) total += received;
-	} while (received == (size - total));
+	} while (received == (int)(size - total));
     if (received < 0) throw std::runtime_error("Receive message fail.");
 	return total;
 }

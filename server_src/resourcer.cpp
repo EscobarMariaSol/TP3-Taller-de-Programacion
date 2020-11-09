@@ -27,7 +27,7 @@ void Resourcer::addResource(const std::string& resource_name,
     }
 }
 
-std::string Resourcer::getResourceValue(const std::string resource_name) {
+std::string Resourcer::getResourceValue(const std::string& resource_name) {
     std::lock_guard<std::mutex> lock(this->mutex);
     std::map<std::string, std::string>::const_iterator it;
     it = this->resources.find(resource_name);
@@ -35,7 +35,7 @@ std::string Resourcer::getResourceValue(const std::string resource_name) {
     return it->second;
 }
 
-bool Resourcer::containsResource(const std::string resource_name) {
+bool Resourcer::containsResource(const std::string& resource_name) {
     std::lock_guard<std::mutex> lock(this->mutex);
     std::map<std::string, std::string>::const_iterator it;
     it = this->resources.find(resource_name);

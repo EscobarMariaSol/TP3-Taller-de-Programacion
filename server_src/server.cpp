@@ -1,6 +1,6 @@
 #include "server.h"
 
-/******************* Funciones auxiliares de Server ******************************/
+/******************* Funciones auxiliares de Server **************************/
 
 static bool is_dead(const ThreadClient *client) {
     return (client == nullptr);
@@ -30,12 +30,12 @@ void Server::run() {
                 std::move(accept_socket), std::ref(this->resourcer));
             clients.push_back(client);
             client->start();
-            for (std::list<ThreadClient*>::iterator client = clients.begin();
-                client != clients.end(); ++client) {
-                if ((*client)->hasFinished()) {
-                    (*client)->join();
-                    delete (*client);
-                    (*client) = nullptr;
+            for (std::list<ThreadClient*>::iterator cli = clients.begin();
+                cli != clients.end(); ++cli) {
+                if ((*cli)->hasFinished()) {
+                    (*cli)->join();
+                    delete (*cli);
+                    (*cli) = nullptr;
                 }
             }
             clients.remove_if(is_dead);

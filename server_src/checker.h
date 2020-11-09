@@ -2,6 +2,7 @@
 #define CHECKER_H
 
 #include <string>
+#include <utility>
 
 class Checker {
 private:
@@ -9,7 +10,7 @@ private:
     bool isAGet() const;
 
 public:
-    explicit Checker(std::pair<std::string, std::string>& request);
+    explicit Checker(const std::pair<std::string, std::string>& request);
     ~Checker();
     bool isAValidMethod() const;
     bool isAPost() const;

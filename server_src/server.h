@@ -11,6 +11,8 @@
 #include <thread>
 #include <functional>
 #include <list>
+#include <string>
+#include <utility>
 
 // Clase correspondiente al thread servidor, que se encarga de aceptar
 // nuevos cliente y despacharlos

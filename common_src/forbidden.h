@@ -2,7 +2,11 @@
 #define FORBIDDEN_H
 
 #include "response.h"
+#include <utility>
+#include <string>
+#include <sstream>
 
+// Clase correspondiente a la respuesta Forbbiden
 class Forbidden: public Response {
 public:
     Forbidden();

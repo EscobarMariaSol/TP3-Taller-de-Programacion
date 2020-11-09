@@ -8,7 +8,7 @@ bool Checker::isAGet() const {
 
 /******************* Métodos Públicos de Checker *****************************/
 
-Checker::Checker(std::pair<std::string, std::string>& request): 
+Checker::Checker(const std::pair<std::string, std::string>& request): 
     request(request) {
 }
 

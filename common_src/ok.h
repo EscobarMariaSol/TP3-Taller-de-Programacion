@@ -3,7 +3,11 @@
 
 #include "response.h"
 #include <functional>
+#include <utility>
+#include <string>
+#include <sstream>
 
+// Clase correspondiente a la respuesta Ok
 class Ok: public Response {
 private: 
     std::string value;

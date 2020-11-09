@@ -1,9 +1,11 @@
 #include "io_handler.h"
 
+/************************* Métodos Públicos IOHandler ************************/
+
 IOHandler::IOHandler(){
 }
 
-IOHandler::IOHandler(const std::string path) {
+IOHandler::IOHandler(const std::string& path) {
     if (!path.empty()) {
         this->file.open(path, std::fstream::in);
         if (this->file.fail())

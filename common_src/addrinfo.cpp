@@ -1,6 +1,6 @@
 #include "addrinfo.h"
 
-/******************* Métodos Privados de HandlerAddrinfo ****************************/
+/******************* Métodos Privados de HandlerAddrinfo *********************/
 
 void HandlerAddrinfo::init(const int flag) {
     struct addrinfo *_hints = &this->hints;
@@ -12,9 +12,9 @@ void HandlerAddrinfo::init(const int flag) {
 }
 
 
-/******************* Métodos Públicos de HandlerAddrinfo ****************************/
+/******************* Métodos Públicos de HandlerAddrinfo *********************/
 
-HandlerAddrinfo::HandlerAddrinfo(const char* host, const char* port, const int flag): 
+HandlerAddrinfo::HandlerAddrinfo(const int flag): 
     hints() {
     init(flag);
 }

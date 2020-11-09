@@ -2,9 +2,11 @@
 #define PARSER_H
 
 #include <exception>
+#include <utility>
+#include <string>
 #include "resourcer.h"
-#include "../common_src/response.h"
 #include "checker.h"
+#include "../common_src/response.h"
 
 class Parser {
 private:

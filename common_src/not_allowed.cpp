@@ -1,6 +1,6 @@
 #include "not_allowed.h"
 
-NotAllowed::NotAllowed(std::string value): Response(), value(value) {
+NotAllowed::NotAllowed(const std::string& value): Response(), value(value) {
 }
 
 NotAllowed::~NotAllowed() {

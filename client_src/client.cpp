@@ -37,5 +37,3 @@ void Client::run() {
     recvResponse(response);
     handler.setOutput(response);
 }
-
-

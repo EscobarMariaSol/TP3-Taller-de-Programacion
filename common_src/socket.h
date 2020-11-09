@@ -6,6 +6,7 @@
 #include <cstring>
 #include <netdb.h>
 #include <mutex>
+#include <utility>
 #include <string>
 #include <functional>
 #include "addrinfo.h"
@@ -30,13 +31,13 @@ private:
     void bindAndListen(HandlerAddrinfo& addrinfo);
     // Activa la opcion de reusar la direccion en caso de que esta
     // no este disponible por un TIME_WAIT
-    // Pos: se activa la opción de reusar la dirección, si ocurre un error lanza 
-    // una excepción informando de lo ocurrido.
+    // Pos: se activa la opción de reusar la dirección en caso de un TIME WAIT,
+    // si ocurre un error una excepción informando de lo ocurrido.
     void activeReuseAddress();
     
 public:
     // Constructor 
-    explicit Socket(int& fd);
+    explicit Socket(const int& fd);
     // Constructor Client
     Socket(const char* host, const char* port);
     // Constructor Server

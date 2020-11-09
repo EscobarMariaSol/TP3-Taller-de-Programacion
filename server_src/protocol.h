@@ -22,14 +22,15 @@ class HttpProtocol{
 private:
     Resourcer resourcer;
     Parser parser;
-    Response* handlePostRequest(Checker& checker, const std::string& content, 
-        std::pair<std::string, std::string> line);
-    Response* handleGetRequest(Checker& checker, 
-        std::pair<std::string, std::string> line);
+    Response* handlePostRequest(const Checker& checker, 
+        const std::string& content, 
+        const std::pair<std::string, std::string>& line);
+    Response* handleGetRequest(const Checker& checker, 
+        const std::pair<std::string, std::string>& line);
 
 public:
     // Constructor
-    HttpProtocol(const Resourcer& resourcer);
+    explicit HttpProtocol(const Resourcer& resourcer);
     // Destructor
     ~HttpProtocol();
     // Método que recibe el contenido de un petitorio, lo procesa, 

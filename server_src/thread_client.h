@@ -1,12 +1,14 @@
 #ifndef THREAD_CLIENT_H
 #define THREAD_CLIENT_H
 
-#include "thread.h"
-#include "../common_src/socket.h"
 #include "protocol.h"
 #include "resourcer.h"
+#include "thread.h"
+#include "../common_src/socket.h"
 #include "../common_src/response.h"
 #include <atomic>
+#include <sstream>
+#include <utility>
 
 // Clase correspondiente al thread que despacha un cliente, hereda de Thread.
 // Cuenta con los siguientes atributos:

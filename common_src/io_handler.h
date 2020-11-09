@@ -3,17 +3,19 @@
 
 #include <fstream>
 #include <sstream>
+#include <utility>
 #include <string>
 #include <iostream>
 #include <functional>
 
+// clase encargada de interactuar con la entrada y salida estándar de datos
 class IOHandler {
 private:
     std::fstream file;
     
 public:
     IOHandler();
-    IOHandler(const std::string path);
+    explicit IOHandler(const std::string& path);
     ~IOHandler();
     void getInput(std::stringbuf& buffer);
     void setOutput(const std::stringbuf& msg);
