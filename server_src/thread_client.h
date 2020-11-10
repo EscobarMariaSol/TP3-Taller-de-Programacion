@@ -5,10 +5,11 @@
 #include "resourcer.h"
 #include "thread.h"
 #include "../common_src/socket.h"
-#include "../common_src/response.h"
+#include "response.h"
 #include <atomic>
 #include <sstream>
 #include <utility>
+#include <syslog.h>
 
 // Clase correspondiente al thread que despacha un cliente, hereda de Thread.
 // Cuenta con los siguientes atributos:
@@ -21,7 +22,7 @@
 class ThreadClient: public Thread {
 private:
     Socket peer;
-    Resourcer resourcer;
+    Resourcer& resourcer;
     std::atomic<bool> running;
     // Método que recibe el petitorio del cliente y loguarda dentro del 
     // buffer "request"

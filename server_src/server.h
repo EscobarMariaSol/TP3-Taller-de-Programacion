@@ -3,10 +3,8 @@
 
 #include "../common_src/socket.h"
 #include "../common_src/io_handler.h"
-#include "response.h"
 #include "thread.h"
 #include "thread_client.h"
-#include "protocol.h"
 #include "resourcer.h"
 #include <thread>
 #include <functional>
@@ -26,7 +24,7 @@
 class Server: public Thread {
 private:
     Socket socket;
-    Resourcer resourcer;
+    Resourcer& resourcer;
     IOHandler io_handler;
     std::atomic<bool> keep_running;
     // Método que agrega clientes a la lista de clientes conectados

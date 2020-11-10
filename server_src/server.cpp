@@ -63,6 +63,8 @@ void Server::run() {
             std::string error = e.what();
             if ((error == "Server cannot accept client." ) 
                 && !this->keep_running) break;
+            else 
+                throw std::runtime_error(e.what());
         }
     }
 }

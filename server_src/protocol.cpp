@@ -24,7 +24,7 @@ Response* HttpProtocol::handleGetRequest(const Checker& checker,
 
 /**************** Métodos públicos de HttpProtocol ***************************/
 
-HttpProtocol::HttpProtocol(const Resourcer& resourcer): resourcer(resourcer) {
+HttpProtocol::HttpProtocol(Resourcer& resourcer): resourcer(resourcer) {
 }
 
 HttpProtocol::~HttpProtocol() {

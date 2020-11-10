@@ -38,6 +38,6 @@ void Client::run() {
         recvResponse(response);
         handler.setOutput(response);
     } catch(const std::exception& e) {
-            std::cout << "Error: "<< e.what() << "\n";
+        syslog(LOG_CRIT, "Error: %s", e.what());
     }
 }

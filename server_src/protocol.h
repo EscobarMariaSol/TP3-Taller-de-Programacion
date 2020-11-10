@@ -19,7 +19,7 @@
 // guardan los recursos creados/accedidos por los clientes
 class HttpProtocol{
 private:
-    Resourcer resourcer;
+    Resourcer& resourcer;
     Response* handlePostRequest(const Checker& checker, const Parser& parser,
         const std::pair<std::string, std::string>& line);
     Response* handleGetRequest(const Checker& checker, 
@@ -27,7 +27,7 @@ private:
 
 public:
     // Constructor
-    explicit HttpProtocol(const Resourcer& resourcer);
+    explicit HttpProtocol(Resourcer& resourcer);
     // Destructor
     ~HttpProtocol();
     // Método que recibe el contenido de un petitorio, lo procesa, 

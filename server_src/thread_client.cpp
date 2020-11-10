@@ -26,7 +26,7 @@ void ThreadClient::sendResponse(Response *response) {
 
 ThreadClient::ThreadClient(Socket&& peer, Resourcer& resourcer): 
     peer(std::move(peer)), 
-    resourcer(std::ref(resourcer)), 
+    resourcer(resourcer), 
     running(true) {
 }
 
@@ -36,12 +36,17 @@ ThreadClient::~ThreadClient() {
 void ThreadClient::run() {
     std::stringbuf request;
     recvRequest(request);
-    HttpProtocol protocol(this->resourcer); 
+    HttpProtocol protocol(std::ref(this->resourcer)); 
     Response *response = protocol.handleRequestResponse(request.str());
-    std::cout << protocol.getRequestFormat(request.str());
-    sendResponse(response);
-    delete response;
-    this->running = false;
+    try {
+        std::cout << protocol.getRequestFormat(request.str());
+        sendResponse(response);
+        delete response;
+        this->running = false;
+    } catch (std::runtime_error& e) {
+        if (response) delete response;
+        throw std::runtime_error(e.what());
+    }
 }
 
 void ThreadClient::stop() {

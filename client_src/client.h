@@ -3,6 +3,7 @@
 
 #include "../common_src/socket.h"
 #include "../common_src/io_handler.h"
+#include <syslog.h>
 
 // Clase correspondiente a un cliente, recibe un host y un puerto
 // correspondiente a los datos del servidor al que quiere conectarse

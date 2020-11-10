@@ -35,6 +35,6 @@ void ServerProgram::startRunning(const char *port, const std::string& path) {
         stopServer(server);
     } catch(const std::runtime_error& e) {
         if (server) stopServer(server);
-        std::cout << "Error: "<< e.what() << "\n";
+        throw std::runtime_error(e.what());
     }
 }

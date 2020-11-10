@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
         try {
            server.startRunning(argv[1], std::string(argv[2]));
         } catch(const std::exception& e) {
-            std::cout << "Error: "<< e.what() << "\n";
+            syslog(LOG_CRIT, "Error: %s", e.what());
         }
     }
     return 0;
