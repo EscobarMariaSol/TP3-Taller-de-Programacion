@@ -14,7 +14,7 @@ static bool is_dead(const ThreadClient *client) {
 void Server::addClients(std::list<ThreadClient*>& clients) {
     Socket accept_socket = this->socket.accept();
     ThreadClient *client = new ThreadClient(
-    std::move(accept_socket), std::ref(this->resourcer));
+    std::move(accept_socket), this->resourcer);
     clients.push_back(client);
     client->start();
 }
@@ -63,8 +63,7 @@ void Server::run() {
             std::string error = e.what();
             if ((error == "Server cannot accept client." ) 
                 && !this->keep_running) break;
-            else 
-                throw std::runtime_error(e.what());
+            syslog(LOG_CRIT, "Error: %s", e.what());
         }
     }
 }

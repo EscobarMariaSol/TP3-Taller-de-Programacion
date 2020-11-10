@@ -36,7 +36,7 @@ ThreadClient::~ThreadClient() {
 void ThreadClient::run() {
     std::stringbuf request;
     recvRequest(request);
-    HttpProtocol protocol(std::ref(this->resourcer)); 
+    HttpProtocol protocol(this->resourcer); 
     Response *response = protocol.handleRequestResponse(request.str());
     try {
         std::cout << protocol.getRequestFormat(request.str());
@@ -44,8 +44,11 @@ void ThreadClient::run() {
         delete response;
         this->running = false;
     } catch (std::runtime_error& e) {
-        if (response) delete response;
-        throw std::runtime_error(e.what());
+        if (response){
+            delete response;
+            this->running = false;
+        }
+        syslog(LOG_CRIT, "Error: %s", e.what());
     }
 }
 

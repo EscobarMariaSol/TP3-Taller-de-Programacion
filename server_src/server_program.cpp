@@ -25,7 +25,7 @@ ServerProgram::~ServerProgram()
 void ServerProgram::startRunning(const char *port, const std::string& path) {
     IOHandler io_handler(path);
     saveRoot(io_handler);
-    Server *server = new Server(port, std::ref(this->resourcer));
+    Server *server = new Server(port, this->resourcer);
     try {
         char quit = 0;
         server->start();
@@ -35,6 +35,6 @@ void ServerProgram::startRunning(const char *port, const std::string& path) {
         stopServer(server);
     } catch(const std::runtime_error& e) {
         if (server) stopServer(server);
-        throw std::runtime_error(e.what());
+        syslog(LOG_CRIT, "Error: %s", e.what());
     }
 }
