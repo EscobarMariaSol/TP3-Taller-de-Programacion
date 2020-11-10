@@ -41,6 +41,11 @@ Response* HttpProtocol::handleRequestResponse(const std::string& content) {
     return handleGetRequest(checker, line);
 }
 
-std::string HttpProtocol::getRequestFormat(const std::string& request) const {
-    return request.substr(0,request.find_first_of('\n') + 1);
+std::stringbuf HttpProtocol::getRequestFormat(
+    const std::string& request) const {
+    std::stringbuf result;
+    result.sputn(
+        request.substr(0,request.find_first_of('\n') + 1).c_str(),
+        request.find_first_of('\n') + 1);
+    return result;
 }

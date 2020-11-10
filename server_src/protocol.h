@@ -39,7 +39,7 @@ public:
     // del petitorio
     // pre: recibe el petitorio almacenado en un string
     // Pos: devuelve la petición que se halla dentro del mismo
-    std::string getRequestFormat(const std::string& request) const;
+    std::stringbuf getRequestFormat(const std::string& request) const;
 };
 
 #endif // REQUEST_HANDLER_H

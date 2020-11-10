@@ -35,11 +35,12 @@ ThreadClient::~ThreadClient() {
 
 void ThreadClient::run() {
     std::stringbuf request;
+    IOHandler handler;
     recvRequest(request);
     HttpProtocol protocol(this->resourcer); 
     Response *response = protocol.handleRequestResponse(request.str());
     try {
-        std::cout << protocol.getRequestFormat(request.str());
+        handler.setOutput(protocol.getRequestFormat(request.str()));
         sendResponse(response);
         delete response;
         this->running = false;
