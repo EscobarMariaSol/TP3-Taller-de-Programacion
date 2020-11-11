@@ -19,13 +19,12 @@
 // escuchará a nuevos clientes
 // resourcer, corresponde al repositorio en el cual están almacenados los 
 // recursos que serán accedidos/ modificados segun los petitorios de clientes.
-// io_handler, será el encargado de mostrar por pantalla los petitorios de los
-// diferentes clientes
+// keep_running, un booleano que indica si el server debe seguir su ejecución o 
+// detenerse y liberar los recursos utilizados, ordenadamente
 class Server: public Thread {
 private:
     Socket socket;
     Resourcer& resourcer;
-    IOHandler io_handler;
     std::atomic<bool> keep_running;
     // Método que agrega clientes a la lista de clientes conectados
     // Pre: recibe la lista de clientes

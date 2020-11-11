@@ -44,8 +44,7 @@ void Server::stopAndCleanClients(std::list<ThreadClient*>& clients) {
 
 Server::Server(const char *port, Resourcer& resourcer): 
     socket(port), 
-    resourcer(resourcer), 
-    io_handler(),
+    resourcer(resourcer),
     keep_running(true) {
 }
 

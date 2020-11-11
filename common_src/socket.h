@@ -18,6 +18,8 @@
 class Socket {
 private:
     int fd;
+    // Constructor peer
+    explicit Socket(const int& fd);
     // Asigna el file descriptor al socket que se le pasa por parámetro
     // utilizando la información de la dirección addrs
     // Pos: se ha asignado un file descriptor al socket, si ocurre un error 
@@ -36,8 +38,6 @@ private:
     void activeReuseAddress();
     
 public:
-    // Constructor 
-    explicit Socket(const int& fd);
     // Constructor Client
     Socket(const char* host, const char* port);
     // Constructor Server
@@ -52,7 +52,7 @@ public:
     // Método que permite que se realice una asignación por movimiento
     Socket& operator=(Socket&& other);
     // Destructor
-    virtual ~Socket();
+    ~Socket();
     // Crea el socket aceptador en representación de la conexión establecida
     // Pos: devuelve una referencia a un nuevo socket
     // que funcionará como canal de comunicación

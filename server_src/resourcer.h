@@ -10,7 +10,7 @@
 
 // Clase correspondiente al repositorio donde se almacenan los recursos 
 // Cuenta con los siguientes atributos
-// resources: este parámetro es un map donde se alamacenan los resursos
+// resources: este atributo es un map donde se alamacenan los resursos
 // mutex: correspondiente al mutex que se utilizará para evitar que
 // un thread interrumpa a otro mientra realiza operaciones sobre el repositorio
 class Resourcer {

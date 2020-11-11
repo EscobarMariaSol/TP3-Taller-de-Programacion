@@ -14,6 +14,8 @@ int main(int argc, char *argv[]){
        server.startRunning(argv[1], std::string(argv[2]));
     } catch(const std::exception& e) {
         syslog(LOG_CRIT, "Error: %s", e.what());
+    } catch (...) {
+        syslog(LOG_CRIT, "Unknown Error\n");
     }
     return 0;
 }

@@ -39,5 +39,7 @@ void Client::run() {
         handler.setOutput(response);
     } catch(const std::exception& e) {
         syslog(LOG_CRIT, "Error: %s", e.what());
+    } catch (...) {
+        syslog(LOG_CRIT, "Unknown Error\n");
     }
 }
