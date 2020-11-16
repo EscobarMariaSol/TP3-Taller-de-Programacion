@@ -22,6 +22,11 @@ void ThreadClient::sendResponse(Response *response) {
     this->peer.shutdown(SHUT_WR);
 }
 
+void ThreadClient::cleanResponse(Response* response) {
+    delete response;
+    this->running = false;
+}
+
 /******************* Métodos Públicos de ThreadClient ************************/
 
 ThreadClient::ThreadClient(Socket&& peer, Resourcer& resourcer): 
@@ -36,22 +41,20 @@ ThreadClient::~ThreadClient() {
 void ThreadClient::run() {
     std::stringbuf request;
     IOHandler handler;
-    recvRequest(request);
-    HttpProtocol protocol(this->resourcer); 
-    Response *response = protocol.handleRequestResponse(request.str());
+    Response *response = 0;
     try {
+        recvRequest(request);
+        HttpProtocol protocol(this->resourcer); 
+        response = protocol.handleRequestResponse(request.str());
         handler.setOutput(protocol.getRequestFormat(request.str()));
         sendResponse(response);
-        delete response;
-        this->running = false;
+        cleanResponse(response);
     } catch (std::exception& e) {
-        if (response){
-            delete response;
-            this->running = false;
-        }
+        if (response) cleanResponse(response);
         syslog(LOG_CRIT, "Error: %s", e.what());
     } catch (...) {
-            syslog(LOG_CRIT, "Unknown Error\n");
+        if (response) cleanResponse(response);
+        syslog(LOG_CRIT, "Unknown Error\n");
     }
 }
 

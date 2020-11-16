@@ -34,6 +34,7 @@ private:
     // sido procesado
     // Pos: la respuesta al petitorio del cliente se ha enviado
     void sendResponse(Response *response);
+    void cleanResponse(Response* response);
 
 public:
     // Constructor

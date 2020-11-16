@@ -14,10 +14,10 @@ Response* HttpProtocol::handlePostRequest(const Checker& checker,
 Response* HttpProtocol::handleGetRequest(const Checker& checker, 
     const std::pair<std::string, std::string>& line) {
     std::string response_value = "Content-Type: text/html\n\n";
-    if (!this->resourcer.containsResource(line.second))
-        return new NotFound();
+    std::string value = this->resourcer.getResourceValueIfExist(line.second);
+    if (value.empty()) return new NotFound();
     else 
-        response_value += this->resourcer.getResourceValue(line.second);
+        response_value += value;
     return new Ok(response_value);
 }
     

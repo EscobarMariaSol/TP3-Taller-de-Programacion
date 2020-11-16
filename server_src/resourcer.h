@@ -37,11 +37,7 @@ public:
     // pre: recibe el nombre del recurso en un string
     // Pos: si el recurso se encuentra en el repositorio devuelve su 
     // contenido, sino devuelve un string vacío
-    std::string getResourceValue(const std::string& resource_name);
-    // Método para consultar si un recurso se encuentra dentro del repositorio
-    // Pre: recibe el nombre de un presunto recurso en un string
-    // Pos: devuelve true o false, de acuerdo a si se encuentra el recurso o no
-    bool containsResource(const std::string& resource_name);
+    std::string getResourceValueIfExist(const std::string& resource_name);
 };
 
 #endif // RESOURCER_H

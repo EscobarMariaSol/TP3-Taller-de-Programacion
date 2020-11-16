@@ -36,6 +36,7 @@ void ServerProgram::startRunning(const char *port, const std::string& path) {
         stopServer(server);
         syslog(LOG_CRIT, "Error: %s", e.what());
     } catch (...) {
-            syslog(LOG_CRIT, "Unknown Error\n");
+        stopServer(server);
+        syslog(LOG_CRIT, "Unknown Error\n");
     }
 }
