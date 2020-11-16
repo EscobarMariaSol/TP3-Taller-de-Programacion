@@ -44,12 +44,14 @@ void ThreadClient::run() {
         sendResponse(response);
         delete response;
         this->running = false;
-    } catch (std::runtime_error& e) {
+    } catch (std::exception& e) {
         if (response){
             delete response;
             this->running = false;
         }
         syslog(LOG_CRIT, "Error: %s", e.what());
+    } catch (...) {
+            syslog(LOG_CRIT, "Unknown Error\n");
     }
 }
 

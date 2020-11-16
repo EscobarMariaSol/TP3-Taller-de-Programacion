@@ -40,6 +40,6 @@ void Client::run() {
     } catch(const std::exception& e) {
         syslog(LOG_CRIT, "Error: %s", e.what());
     } catch (...) {
-        syslog(LOG_CRIT, "Unknown Error\n");
+            syslog(LOG_CRIT, "Unknown Error\n");
     }
 }

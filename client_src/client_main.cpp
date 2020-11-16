@@ -6,7 +6,15 @@
 // Pos: el cliente ha sido ejecutado. Devuelve 0 para cualquier caso
 // ya sea error o correcta ejecución completa
 int main(int argc, char *argv[]){
-    Client client(argv[1], argv[2]);
-    client.run();
+    if (argc == 3) {
+        try {
+            Client client(argv[1], argv[2]);
+            client.run();
+        } catch(const std::exception& e) {
+            syslog(LOG_CRIT, "Error: %s", e.what());
+        } catch (...) {
+            syslog(LOG_CRIT, "Unknown Error\n");
+        }
+    }
     return 0;
 }

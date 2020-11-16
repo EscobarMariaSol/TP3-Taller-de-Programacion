@@ -57,12 +57,14 @@ void Server::run() {
         try {
             addClients(clients);
             cleanClients(clients);
-        } catch(const std::runtime_error& e) {
+        } catch(const std::exception& e) {
             stopAndCleanClients(clients);
             std::string error = e.what();
             if ((error == "Server cannot accept client." ) 
                 && !this->keep_running) break;
             syslog(LOG_CRIT, "Error: %s", e.what());
+        } catch (...) {
+            syslog(LOG_CRIT, "Unknown Error\n");
         }
     }
 }

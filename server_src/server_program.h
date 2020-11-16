@@ -23,7 +23,7 @@ private:
     // Método que detiene la ejecución del servidor de manera ordenada
     // Pre: recibe un servidor que está corriendo
     // Pos: el servidor ha sido detenido y sus recursos liberados
-    void stopServer(Server *server);
+    void stopServer(Server& server);
     
 public:
     // Constructor
