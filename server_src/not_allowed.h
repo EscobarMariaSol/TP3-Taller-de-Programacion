@@ -20,7 +20,7 @@ public:
     // Destructor
     ~NotAllowed();
     // Método heredado de la clase Response
-    void getResponse(std::stringbuf& str_serialize) override;
+    void operator()(std::stringbuf& str_serialize) override;
 };
 
 #endif // NOT_ALLOWED_H

@@ -21,7 +21,7 @@ public:
     // Destructor
     ~Ok();
     // Método heredado de la calse Response
-    void getResponse(std::stringbuf& str_serialize) override;
+    void operator()(std::stringbuf& str_serialize) override;
 };
 
 #endif // OK_H
