@@ -18,6 +18,7 @@
 class Socket {
 private:
     int fd;
+    friend class HandlerAddrinfo;
     // Constructor peer
     explicit Socket(const int& fd);
     // Asigna el file descriptor al socket que se le pasa por parámetro
@@ -68,7 +69,7 @@ public:
     // Cierra el canal de comunicación especificado del socket
     // Pre: recibe un canal de comunicación válido
     // Pos: el cana ha sido cerrado
-    void shutdown(int channel);
+    void shutdown(const int channel);
     // Cierra el file descriptor del socket
     // Pos: el file descriotor ha sido cerrado
     void close();

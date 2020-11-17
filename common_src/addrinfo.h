@@ -23,11 +23,11 @@ private:
     // Método para inicializar el atributo hints
     // Pre: recibe un flag para detectar si se trata de un cliente o servidor
     // Pos: la estructura ha sido inicializada
-    void init(const int flag);
+    void init(const int& flag);
 
 public:
     // Constructor
-    explicit HandlerAddrinfo(const int flag);
+    explicit HandlerAddrinfo(const int& flag);
     // Destructor
     ~HandlerAddrinfo();
     // Método que se encarga de llamar a get addrinfo y obtener todas las
@@ -48,7 +48,7 @@ public:
     // Pre: recibe el file descriptor asociado al servidor
     // Pos: el servidor está listo para escuchar conexiones de clientes, en 
     // caso de producirse un error lanza una excepción para informar del mismo
-    void bindAddress(const int fd);
+    void bindAddress(const int& fd);
     // Método que cestablece la conexión entre el cliente y el servidor,
     // recorriendo todas las direcciones disponibles para el cliente hasta 
     // que finalmente logra conectarse o se acaben las direcciones

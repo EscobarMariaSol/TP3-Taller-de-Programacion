@@ -2,7 +2,7 @@
 
 /******************* Métodos Privados de HandlerAddrinfo *********************/
 
-void HandlerAddrinfo::init(const int flag) {
+void HandlerAddrinfo::init(const int& flag) {
     struct addrinfo *_hints = &this->hints;
     memset(_hints, 0, sizeof(struct addrinfo));
 	_hints->ai_family = AF_INET;       
@@ -13,7 +13,7 @@ void HandlerAddrinfo::init(const int flag) {
 
 /******************* Métodos Públicos de HandlerAddrinfo *********************/
 
-HandlerAddrinfo::HandlerAddrinfo(const int flag): 
+HandlerAddrinfo::HandlerAddrinfo(const int& flag): 
     hints(), addr() {
     init(flag);
 }
@@ -28,7 +28,7 @@ void HandlerAddrinfo::callGetAddrinfo(const char* host, const char* port) {
         throw std::runtime_error("Socket address cannot be set.");
 }
 
-void HandlerAddrinfo::bindAddress(const int fd) {
+void HandlerAddrinfo::bindAddress(const int& fd) {
     struct addrinfo *aux_addr; 
 	for (aux_addr = addr; aux_addr; aux_addr = aux_addr->ai_next)
 		if (bind(fd, aux_addr->ai_addr, aux_addr->ai_addrlen) > -1) break;

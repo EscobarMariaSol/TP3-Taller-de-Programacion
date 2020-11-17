@@ -32,11 +32,10 @@ void Server::cleanClients(std::list<ThreadClient*>& clients) {
 }
 
 void Server::stopAndCleanClients(std::list<ThreadClient*>& clients) {
-    for (std::list<ThreadClient*>::iterator client = clients.begin();
-        client != clients.end(); ++client) {
-        (*client)->stop();
-        (*client)->join();
-        delete (*client);
+    for (ThreadClient* client: clients) {
+        (client)->stop();
+        (client)->join();
+        delete (client);
     }
 }
 

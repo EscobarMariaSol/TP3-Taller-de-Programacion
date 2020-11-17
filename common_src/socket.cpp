@@ -28,10 +28,6 @@ void Socket::close() {
 	if (this->fd != -1) ::close(this->fd);
 }
 
-void Socket::shutdown(int channel) {
-	::shutdown(this->fd, channel);
-}
-
 /***************************** Servidor **************************************/
 
 Socket::Socket(const char *port) {
@@ -96,6 +92,10 @@ int Socket::recv(char *buffer, const size_t size) {
 	} while (received == (int)(size - total));
     if (received < 0) throw std::runtime_error("Receive message fail.");
 	return total;
+}
+
+void Socket::shutdown(const int channel) {
+	::shutdown(this->fd, channel);
 }
 
 Socket::~Socket() {

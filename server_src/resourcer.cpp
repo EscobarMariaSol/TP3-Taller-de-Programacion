@@ -9,11 +9,13 @@ Resourcer::~Resourcer() {
 }
 
 Resourcer::Resourcer(const Resourcer& other) {
-    this->resources = std::ref(other.resources);
+    if (this != &other)
+        this->resources = std::ref(other.resources);
 }
 
 Resourcer& Resourcer::operator=(const Resourcer& other) {
-    this->resources = std::ref(other.resources);
+    if (this != &other)  
+        this->resources = std::ref(other.resources);
     return *this;
 }
 
