@@ -284,7 +284,8 @@ como un recurso para quitar un poco de responsabilidad al método mencionado.
 ### Resoucer
 
 Clase correspondiente al repositorio donde se almacenan los recursos que los 
-clientes pueden agregar/modificar o consultar. Esta clase es compartida por todos los threads que se crean desde el servidor, por lo cual cuenta con un 
+clientes pueden agregar/modificar o consultar. Esta clase es compartida por 
+todos los threads que se crean desde el servidor, por lo cual cuenta con un 
 atributo correspondiente al mutex que se encarga de proteger la ejecución de 
 los métodos, evitando que se pueda corromper algún recurso o acción de un hilo 
 desde otro hilo.
@@ -302,8 +303,7 @@ public:
     Resourcer(const Resourcer& other);
     Resourcer& operator=(const Resourcer& other);
     void addResource(const std::string& resource_name, const std::string& resource_value);
-    std::string getResourceValue(const std::string& resource_name);
-    bool containsResource(const std::string& resource_name);
+    std::string getResourceValueIfExist(const std::string& resource_name);
 };
 ```
 Vemos que cuenta con dos atributos, uno correspondiente al mutex ya mencionado 
