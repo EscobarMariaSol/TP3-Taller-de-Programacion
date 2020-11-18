@@ -315,8 +315,9 @@ sea compartida por referencia entre todos los threads.
 ### Response
 
 Esta clase intenta representar el comportamiento de una interfaz, ya que no es 
-instancia da en ningún momento, ni posee implementación del único método que 
-posee, el cual debe ser implementado por las clases que hereden de Response. 
+instanciada en ningún momento, ni posee implementación del único método que 
+posee, que en este caso corresponde al operator(), el cual se decide sobrecargar 
+aquí, este debe ser implementado por las clases que hereden de Response. 
 Como tenemos cuatro tipos de respuestas posibles y algunas poseen un valor y 
 otras no, se ha decidido que cada tipo de respuesta sean un tipo Response, así 
 todas pueden ser consultadas a través del mismo método, sin necesidad de 
@@ -328,7 +329,7 @@ class Response {
 public:
     Response();
     virtual ~Response();
-    virtual void getResponse(std::stringbuf& str_serialize) = 0;
+    virtual void operator()(std::stringbuf& str_serialize) = 0;
 };
 ```
 Como se puede ver cuenta con un único método, el cual es virtual puro, obligando 
@@ -336,8 +337,8 @@ asi a las clases que hereden de ella a implementar este método y así lograr
 que todas puedan comportarse como una Response.
 
 A continuación se detalla la interfaz de cada una de las respuestas 
-implementadas, nótese como todas cuentan con el mismo método heredado de la 
-clase Response, al cual se le hace un override en cada clase.
+implementadas, nótese como todas implementan el método *operator()* heredado 
+de la clase Response, al cual se le hace un override en cada clase.
 
 ##### OK
 
@@ -352,7 +353,7 @@ private:
 public:
     explicit Ok(const std::string& value);
     ~Ok();
-    void getResponse(std::stringbuf& str_serialize) override;
+    void operator()(std::stringbuf& str_serialize) override;
 };
 ```
 
@@ -365,7 +366,7 @@ class Forbidden: public Response {
 public:
     Forbidden();
     ~Forbidden();
-    void getResponse(std::stringbuf& str_serialize) override;
+    void operator()(std::stringbuf& str_serialize) override;
 };
 ```
 
@@ -378,7 +379,7 @@ class NotFound: public Response {
 public:
     NotFound();
     ~NotFound();
-    void getResponse(std::stringbuf& str_serialize) override;
+    void operator()(std::stringbuf& str_serialize) override;
 };
 ```
 
@@ -396,7 +397,7 @@ private:
 public:
     explicit NotAllowed(const std::string& value);
     ~NotAllowed();
-    void getResponse(std::stringbuf& str_serialize) override;
+    void operator()(std::stringbuf& str_serialize) override;
 };
 ```
 
@@ -540,7 +541,7 @@ private:
     std::atomic<bool> keep_running;
     void addClients(std::list<ThreadClient*>& clients);
     void cleanClients(std::list<ThreadClient*>& clients);
-    void stopAndCleanClients(std::list<ThreadClient*>& clients);
+    void stopAndCleanClients(const std::list<ThreadClient*>& clients);
 
 public:
     Server(const char *port, Resourcer& resourcer);
@@ -618,6 +619,7 @@ La interfaz completa de esta clase es la siguiente:
 class Socket {
 private:
     int fd;
+    friend class HandlerAddrinfo;
     explicit Socket(const int& fd);
     void setFileDescriptor(const HandlerAddrinfo& addrinfo);
     void bindAndListen(HandlerAddrinfo& addrinfo);
@@ -650,10 +652,16 @@ los de movimiento, impidiendo así la copia innecesaria de datos y además
 evitando la pérdida o corrupción de los datos. 
 Se puede ver que cuenta además con unos métodos privados, estos se utilizan 
 desde el constructor del servidor, para realizar la correcta conexión del mismo.
+También puede verse como cuenta con una clase *friend*, la cual corresponde a 
+HandlerAddrinfo, se decide realizar esta clasificación, puesto que al momento 
+de hacer bind o connect del socket, se le debe compartir el file descriptor 
+a este handler para que recorra las direcciones posibles y logre conectarse o 
+hacer bind.
 
 ### HandlerAddrinfo
 
-Como ya se ha mencionado, esta clase se encarga de manejar todo lo relacionado 
+Como ya se ha mencionado en la sección anterior esta clase es *friend* de la 
+clase *Socket*, esta clase se encarga de manejar todo lo relacionado 
 a direcciones del tipo *struct addrinfo*, abtrayendo así al Socket de tener que 
 realizar operaciones como recorrer estas direcciones para obtener un file 
 descriptor válido. La calse se instancia con el valor de un flag, que se 

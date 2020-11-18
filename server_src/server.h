@@ -42,7 +42,7 @@ private:
     // Pre: recibe una lista de clientes
     // Pos: los clientes han sido detenidos y los recursos utilizados
     // se han liberado
-    void stopAndCleanClients(std::list<ThreadClient*>& clients);
+    void stopAndCleanClients(const std::list<ThreadClient*>& clients);
 
 public:
     // Constructor

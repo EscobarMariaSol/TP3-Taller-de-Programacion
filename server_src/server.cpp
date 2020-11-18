@@ -31,7 +31,7 @@ void Server::cleanClients(std::list<ThreadClient*>& clients) {
     clients.remove_if(is_dead);
 }
 
-void Server::stopAndCleanClients(std::list<ThreadClient*>& clients) {
+void Server::stopAndCleanClients(const std::list<ThreadClient*>& clients) {
     for (ThreadClient* client: clients) {
         (client)->stop();
         (client)->join();
