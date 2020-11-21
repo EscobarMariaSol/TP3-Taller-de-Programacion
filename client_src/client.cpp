@@ -13,7 +13,7 @@ void Client::recvResponse(std::stringbuf& response) {
     int recv = 0;
     char buffer[BUFFER_TAM] = {0};
     do {
-		if ((recv = this->socket.recv(buffer, BUFFER_TAM)) == -1);
+		recv = this->socket.recv(buffer, BUFFER_TAM);
 		response.sputn(buffer, recv);
 		memset(buffer, 0, BUFFER_TAM);	
 	} while (recv > 0);

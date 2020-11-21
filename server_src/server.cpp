@@ -63,6 +63,7 @@ void Server::run() {
                 && !this->keep_running) break;
             syslog(LOG_CRIT, "Error: %s", e.what());
         } catch (...) {
+            stopAndCleanClients(clients);
             syslog(LOG_CRIT, "Unknown Error\n");
         }
     }

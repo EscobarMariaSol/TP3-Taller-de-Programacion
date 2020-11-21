@@ -8,7 +8,7 @@ void ThreadClient::recvRequest(std::stringbuf& request) {
     int recv = 0;
     char buffer[BUFFER_TAM] = {0};
     do {
-		if ((recv = this->peer.recv(buffer, BUFFER_TAM)) == -1);
+		recv = this->peer.recv(buffer, BUFFER_TAM);
 		request.sputn(buffer, recv);
 		memset(buffer, 0, BUFFER_TAM);	
 	} while (recv > 0);
